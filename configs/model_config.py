@@ -1,13 +1,15 @@
-import torch.cuda
-import torch.backends
-import os
 import logging
+import os
 import uuid
 
-LOG_FORMAT = "%(levelname) -5s %(asctime)s" "-1d: %(message)s"
+import torch.backends
+
+logging.basicConfig(
+    format='%(levelname)5s %(asctime)-15s #%(filename)-20s@%(funcName)-20s: %(message)s',
+    level=logging.INFO
+)
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-logging.basicConfig(format=LOG_FORMAT)
 
 embedding_model_dict = {
     "ernie-tiny": "nghuyong/ernie-3.0-nano-zh",
@@ -21,7 +23,6 @@ EMBEDDING_MODEL = "text2vec"
 
 # Embedding running device
 EMBEDDING_DEVICE = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
-
 
 # supported LLM models
 # llm_model_dict 处理了loader的一些预设行为，如加载位置，模型名称，模型处理器实例
@@ -66,7 +67,7 @@ llm_model_dict = {
 }
 
 # LLM 名称
-LLM_MODEL = "chatglm-6b-int4"
+LLM_MODEL = "chatglm-6b-int64"
 # 如果你需要加载本地的model，指定这个参数  ` --no-remote-model`，或者下方参数修改为 `True`
 NO_REMOTE_MODEL = False
 # 量化加载8bit 模型
@@ -90,7 +91,6 @@ USE_PTUNING_V2 = False
 
 # LLM running device
 LLM_DEVICE = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
-
 
 VS_ROOT_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "vector_store")
 
@@ -121,13 +121,12 @@ NLTK_DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "nltk_
 
 FLAG_USER_NAME = uuid.uuid4().hex
 
-logger.info(f"""
-loading model config
-llm device: {LLM_DEVICE}
-embedding device: {EMBEDDING_DEVICE}
-dir: {os.path.dirname(os.path.dirname(__file__))}
-flagging username: {FLAG_USER_NAME}
-""")
+logger.info(f"""loading model config""")
+logger.info(f"""llm model: {LLM_MODEL}""")
+logger.info(f"""llm device: {LLM_DEVICE}""")
+logger.info(f"""embedding device: {EMBEDDING_DEVICE}""")
+logger.info(f"""dir: {os.path.dirname(os.path.dirname(__file__))}""")
+logger.info(f"""flagging username: {FLAG_USER_NAME}""")
 
 # 是否开启跨域，默认为False，如果需要开启，请设置为True
 # is open cross domain
