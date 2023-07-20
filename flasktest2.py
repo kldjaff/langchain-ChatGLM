@@ -13,10 +13,10 @@ import os
 # import urllib
 
 # import nltk
-from chains.local_doc_qa import LocalDocQA
-from configs.model_config import (VS_ROOT_PATH, UPLOAD_ROOT_PATH, EMBEDDING_DEVICE,
-                                  EMBEDDING_MODEL, NLTK_DATA_PATH,
-                                  VECTOR_SEARCH_TOP_K, LLM_HISTORY_LEN, OPEN_CROSS_DOMAIN)
+# from chains.local_doc_qa import LocalDocQA
+# from configs.model_config import (VS_ROOT_PATH, UPLOAD_ROOT_PATH, EMBEDDING_DEVICE,
+#                                   EMBEDDING_MODEL, NLTK_DATA_PATH,
+#                                   VECTOR_SEARCH_TOP_K, LLM_HISTORY_LEN, OPEN_CROSS_DOMAIN)
 # import models.shared as shared
 # from models.loader.args import parser
 # from models.loader import LoaderCheckPoint
@@ -72,7 +72,7 @@ CORS(app, supports_credentials=True)
 #         turn += 1
 
 @sockets.route('/echo')
-def echo_socket(websocket):
+async def echo_socket(websocket):
     turn = 1
     while not websocket.closed:
         input_json = json.loads(websocket.receive())
@@ -80,11 +80,11 @@ def echo_socket(websocket):
         question, history, knowledge_base_id = input_json[""], input_json["history"], input_json["knowledge_base_id"]
 
         print(f"knowledge_base_id = {knowledge_base_id}")
-        gevent.spawn(websocket.send,json.dumps({"question": question, "turn": turn, "flag": "start"}))
+        await gevent.spawn(websocket.send,json.dumps({"question": question, "turn": turn, "flag": "start"}))
 
         source_documents = [f"{turn}"]
 
-        gevent.spawn(websocket.send,json.dumps(
+        await gevent.spawn(websocket.send,json.dumps(
                 {
                     "question": question,
                     "turn": turn,
