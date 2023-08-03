@@ -121,13 +121,6 @@ NLTK_DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "nltk_
 
 FLAG_USER_NAME = uuid.uuid4().hex
 
-logger.info(f"""loading model config""")
-logger.info(f"""llm model: {LLM_MODEL}""")
-logger.info(f"""llm device: {LLM_DEVICE}""")
-logger.info(f"""embedding device: {EMBEDDING_DEVICE}""")
-logger.info(f"""dir: {os.path.dirname(os.path.dirname(__file__))}""")
-logger.info(f"""flagging username: {FLAG_USER_NAME}""")
-
 # 是否开启跨域，默认为False，如果需要开启，请设置为True
 # is open cross domain
 OPEN_CROSS_DOMAIN = False
@@ -137,3 +130,10 @@ OPEN_CROSS_DOMAIN = False
 # 具体申请方式请见 https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/quickstarts/rest/python
 BING_SEARCH_URL = "https://api.bing.microsoft.com/v7.0/search"
 BING_SUBSCRIPTION_KEY = ""
+
+logger.info(f"""loading model config""")
+logger.info(f"""llm model: {LLM_MODEL}""")
+logger.info(f"""llm device: {LLM_DEVICE}""")
+logger.info(f"""embedding device: {EMBEDDING_DEVICE}""")
+logger.info(f"""dir: {os.path.dirname(os.path.dirname(__file__))}""")
+logger.info(f"""flagging username: {FLAG_USER_NAME}""")

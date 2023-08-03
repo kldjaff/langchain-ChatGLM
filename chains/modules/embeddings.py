@@ -32,3 +32,6 @@ class MyEmbeddings(HuggingFaceEmbeddings):
         text = text.replace("\n", " ")
         embedding = self.client.encode(text, normalize_embeddings=True)
         return embedding.tolist()
+
+if __name__ == "__main__":
+    print("hello")

@@ -1,11 +1,16 @@
 import sys
-
+import logging
 from models.loader.args import parser
 from models.loader import LoaderCheckPoint
 from configs.model_config import (llm_model_dict, LLM_MODEL)
 from models.base import BaseAnswer
 """迭代器是否停止状态"""
 stop_everything = False
+
+logging.basicConfig(format='%(levelname)5s %(asctime)-15s #%(filename)-20s@%(funcName)-20s: %(message)s',
+                    level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 loaderCheckPoint: LoaderCheckPoint = None
 
@@ -20,6 +25,8 @@ def loaderLLM(llm_model: str = None, no_remote_model: bool = False, use_ptuning_
     """
     pre_model_name = loaderCheckPoint.model_name
     llm_model_info = llm_model_dict[pre_model_name]
+
+    logger.info(f"using module {llm_model_info}")
 
     if no_remote_model:
         loaderCheckPoint.no_remote_model = no_remote_model
