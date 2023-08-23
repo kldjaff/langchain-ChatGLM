@@ -14,7 +14,7 @@ import re
 import logging
 import argparse
 
-LOG_PATH = "./logs/"
+LOG_PATH = "../logs/"
 LOG_FORMAT = "%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s"
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)

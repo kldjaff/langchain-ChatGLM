@@ -15,6 +15,12 @@ python webui_allinone.py --model-path-address model1@host1@port1 model2@host2@po
 python webui_alline.py --model-path-address model@host@port --num-gpus 2 --gpus 0,1 --max-gpu-memory 10GiB
 
 """
+
+import os
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../'))
+
 import streamlit as st
 from webui_pages.utils import *
 from streamlit_option_menu import option_menu

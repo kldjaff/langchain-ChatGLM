@@ -1,3 +1,8 @@
+import os
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../'))
+
 from langchain.chat_models import ChatOpenAI
 from configs.model_config import llm_model_dict, LLM_MODEL
 from langchain import LLMChain
@@ -5,6 +10,8 @@ from langchain.prompts.chat import (
     ChatPromptTemplate,
     HumanMessagePromptTemplate,
 )
+
+print(llm_model_dict[LLM_MODEL]["api_base_url"])
 
 model = ChatOpenAI(
     streaming=True,
