@@ -1,8 +1,8 @@
 from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer('moka-ai/m3e-base')
+model = SentenceTransformer('/home/yihu/workspace/models/m3e-base')
 
-model.save("/home/yihu/workspace/models/m3e-base")
+# model.save("/home/yihu/workspace/models/m3e-base")
 #Our sentences we like to encode
 sentences = [
     '* Moka 此文本嵌入模型由 MokaAI 训练并开源，训练脚本使用 uniem',
